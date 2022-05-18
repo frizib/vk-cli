@@ -1,0 +1,61 @@
+<?php
+
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
+
+declare(strict_types=1);
+
+namespace ddosnik\utils;
+
+use const PHP_EOL;
+
+abstract class Terminal{
+	public static string $FORMAT_BOLD = "\x1b[1m";
+	public static string $FORMAT_OBFUSCATED = "";
+	public static string $FORMAT_ITALIC = "\x1b[3m";
+	public static string $FORMAT_UNDERLINE = "\x1b[4m";
+	public static string $FORMAT_STRIKETHROUGH = "\x1b[9m";
+
+	public static string $FORMAT_RESET = "\x1b[m";
+
+	public static string $COLOR_BLACK = "\x1b[38;5;16m";
+	public static string $COLOR_DARK_BLUE = "\x1b[38;5;19m";
+	public static string $COLOR_DARK_GREEN = "\x1b[38;5;34m";
+	public static string $COLOR_DARK_AQUA = "\x1b[38;5;37m";
+	public static string $COLOR_DARK_RED = "\x1b[38;5;124m";
+	public static string $COLOR_PURPLE = "\x1b[38;5;127m";
+	public static string $COLOR_GOLD = "\x1b[38;5;214m";
+	public static string $COLOR_GRAY = "\x1b[38;5;145m";
+	public static string $COLOR_DARK_GRAY = "\x1b[38;5;59m";
+	public static string $COLOR_BLUE = "\x1b[38;5;63m";
+	public static string $COLOR_GREEN = "\x1b[38;5;83m";
+	public static string $COLOR_AQUA = "\x1b[38;5;87m";
+	public static string $COLOR_RED = "\x1b[38;5;203m";
+	public static string $COLOR_LIGHT_PURPLE = "\x1b[38;5;207m";
+	public static string $COLOR_YELLOW = "\x1b[38;5;227m";
+	public static string $COLOR_WHITE = "\x1b[38;5;231m";
+
+	/**
+	 * Emits a string containing Minecraft colour codes to the console formatted with native colours, followed by a
+	 * newline character.
+	 */
+	public static function writeLine(string $line) : void{
+		echo $line . public static string $ FORMAT_RESET . PHP_EOL;
+	}
+}
