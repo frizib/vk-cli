@@ -52,6 +52,7 @@ final class Logger {
     }
 
     public function send(string $text, string $level, $color = '') : void {
+        date_default_timezone_set('Europe/Moscow');
         if($level === 'MSG') {
           Terminal::writeLine($text);
         } else {
