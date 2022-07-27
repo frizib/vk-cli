@@ -40,7 +40,7 @@ final class Logger {
     }
 
     public function msg(string $name, string $text, string $shortlink, string $fromshort) : void {
-        $this->send(Terminal::$COLOR_GREEN.$shortlink.Terminal::$COLOR_GRAY.'@vk-cli '.Terminal::$COLOR_AQUA.'~/me '.Terminal::$FORMAT_RESET.'> '.Terminal::$COLOR_DARK_BLUE.$name.Terminal::$COLOR_GRAY.' ('.$fromshort.')'.Terminal::$FORMAT_RESET.' -> '.$text, 'MSG');
+        $this->send(Terminal::$COLOR_GREEN.$shortlink.Terminal::$COLOR_GRAY.'@vk-cli '.Terminal::$COLOR_AQUA.'~/me '.Terminal::$FORMAT_RESET.'> '.Terminal::$COLOR_AQUA.$name.Terminal::$COLOR_GRAY.' ('.$fromshort.')'.Terminal::$FORMAT_RESET.' -> '.$text, 'MSG');
     }
 
     public function error(string $text) : void {
