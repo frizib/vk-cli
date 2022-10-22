@@ -30,7 +30,7 @@ final class VKLib {
     }
 
     public function tokenisValid() : bool {
-        $request = $this->sendRequest('account.setOnline',  array(
+        $request = Utils::sendRequest('account.setOnline',  array(
             'access_token' => $this->main->getToken(),
             'v' => 5.173
         ));
@@ -39,22 +39,6 @@ final class VKLib {
         } else {
             return true;
         }
-    }
-
-    public function sendRequest(string $method, array $params, string $server = 'https://api.vk.com/method/') {
-        $url = curl_init();
-        curl_setopt($url, CURLOPT_URL, $server.$method.'?'.http_build_query($params));
-        curl_setopt($url, CURLOPT_HTTPGET, true);
-        curl_setopt($url, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Linux x86_64; rv:101.0) Gecko/20100101 Firefox/101.0');
-        curl_setopt($url, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($url, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Accept: application/json'
-        ));
-        $data = curl_exec($url);
-        curl_close($url);
-      //  var_dump($data);
-        return json_decode($data, true);
     }
 
     public function registerStatic() {
@@ -74,7 +58,7 @@ final class VKLib {
     public function choiseChat() : void {
       $this->main->getLogger()->info('Получаем ваши диалоги...');
       $user_ids = ''; // TODO: Айдишники пользователей из диалогов, для избежания флуд контроля от вк.
-      $request = $this->sendRequest('messages.getConversations', array(
+      $request = Utils::sendRequest('messages.getConversations', array(
         'access_token' => $this->main->getToken(),
         'v' => 5.173,
         'count' => 20
@@ -94,7 +78,7 @@ final class VKLib {
   }
 
     public function getGroupInfo(int $id) : ?array {
-      $request = $this->sendRequest('groups.getById', array(
+      $request = Utils::sendRequest('groups.getById', array(
         'access_token' => $this->main->getToken(),
         'v' => 5.173,
         'group_id' => abs($id)
@@ -106,7 +90,7 @@ final class VKLib {
     }
 
     public function getNameAndSurname(string $ids) {
-      $request = $this->sendRequest('users.get', array(
+      $request = Utils::sendRequest('users.get', array(
         'access_token' => $this->main->getToken(),
         'v' => 5.173,
         'user_ids' => $ids
@@ -126,7 +110,7 @@ final class VKLib {
       }
 
     public function getPollServer() : ?array {
-      $request = $this->sendRequest('messages.getLongPollServer', array(
+      $request = Utils::sendRequest('messages.getLongPollServer', array(
         'access_token' => $this->main->getToken(),
         'v' => 5.173
       ));
@@ -143,7 +127,7 @@ final class VKLib {
     }
 
     public function getShortLink(int $id) : ?string {
-      $request = $this->sendRequest('users.get', array(
+      $request = Utils::sendRequest('users.get', array(
         'access_token' => $this->main->getToken(),
         'v' => 5.173,
         'fields' => 'screen_name',
@@ -156,7 +140,7 @@ final class VKLib {
     }
 
     public function getAccountInfo() : ?array {
-      $request = $this->sendRequest('users.get', array(
+      $request = Utils::sendRequest('users.get', array(
         'access_token' => $this->main->getToken(),
         'v' => 5.173,
         'fields' => 'screen_name',
@@ -170,7 +154,7 @@ final class VKLib {
     public function updateMessages() : void {
       while(true) {
         $this->main->updateConsole();
-        $req = $this->sendRequest('', array(
+        $req = Utils::sendRequest('', array(
           'act' => 'a_check',
           'key' => $this->poll[1],
           'ts' => $this->poll[2],
@@ -195,7 +179,7 @@ final class VKLib {
      }
 
     public function sendMessage(string $message, int $peer_id) : void{
-        $request = $this->sendRequest('messages.send', array(
+        $request = Utils::sendRequest('messages.send', array(
             'peer_id' => $peer_id,
             'access_token' => $this->main->getToken(),
             'message' => $message,

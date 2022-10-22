@@ -20,12 +20,14 @@ use ddosnik\console\MessagesReader;
 
 final class VKCli {
     private Config $cfg;
-    private $console = null;
+    private ?MessagesReader $console = null;
     public int $peer_id = 2000000224;
+    public \ClassLoader $loader;
     public string $shortlink;
+    public static ?VKCli $instance = null;
 
-    public function __construct()
-    {
+    public function __construct(\ClassLoader $autoloader) {
+        self::$instance = $this;
         $logger = new Logger();
         $logger->registerStatic();
         $library = new VKLib($this);
@@ -36,7 +38,12 @@ final class VKCli {
         $this->cfg = new Config(Utils::getDataFolder() . '/settings/config.yml', Config::YAML, array(
           'access_token' => 'zd3afa3466720b6a3791fffffff975aa98616f6abb574mnnnn976afd497482084cabb4c74f6h6'
         ));
+        $this->loader = $autoloader;
         $this->startClient();
+    }
+
+    public static function getInstance() : ?self{
+        return self::$instance;
     }
 
     public function getLogger() : Logger {
@@ -53,7 +60,7 @@ final class VKCli {
 
     public function updateConsole() : void {
   		if(($line = $this->console->getLine()) !== null){
-        $this->getLib()->sendMessage($line, $this->peer_id);
+            $this->getLib()->sendMessage($line, $this->peer_id);
   		}
   	}
 

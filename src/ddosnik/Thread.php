@@ -19,7 +19,7 @@ abstract class Thread extends \Thread{
 
 	public function setClassLoader(\ClassLoader $loader = null){
 		if($loader === null){
-			$loader = Server::getInstance()->getLoader();
+			$loader = VKCli::getInstance()->loader;
 		}
 		$this->classLoader = $loader;
 	}
@@ -33,8 +33,8 @@ abstract class Thread extends \Thread{
 	 */
 	public function registerClassLoader(){
 		if(!interface_exists("ClassLoader", false)){
-			require(\pocketmine\PATH . "src/spl/ClassLoader.php");
-			require(\pocketmine\PATH . "src/spl/BaseClassLoader.php");
+			require(CLI_PATH . "src/spl/ClassLoader.php");
+			require(CLI_PATH . "src/spl/BaseClassLoader.php");
 		}
 		if($this->classLoader !== null){
 			$this->classLoader->register(true);
@@ -42,8 +42,6 @@ abstract class Thread extends \Thread{
 	}
 
 	public function start(int $options = PTHREADS_INHERIT_ALL){
-		ThreadManager::getInstance()->add($this);
-
 		if(!$this->isRunning() and !$this->isJoined() and !$this->isTerminated()){
 			if($this->getClassLoader() === null){
 				$this->setClassLoader();
@@ -67,8 +65,6 @@ abstract class Thread extends \Thread{
 				$this->join();
 			}
 		}
-
-		ThreadManager::getInstance()->remove($this);
 	}
 
 	public function getThreadName() : string{
