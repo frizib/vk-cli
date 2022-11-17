@@ -14,4 +14,4 @@ Launch
 
 Settings
 -------------
-- `sed -i 's/zd3afa3466720b6a3791fffffff975aa98616f6abb574mnnnn976afd497482084cabb4c74f6h6/YOU_API_TOKEN/g' settings/config.yml`
+- `sed -i 's/vk1.a.token/YOU_API_TOKEN/g' settings/config.yml`
